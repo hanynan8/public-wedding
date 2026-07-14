@@ -191,18 +191,15 @@ const themes = {
 const T = themes.pink;
 
 // ─── تدرّجات البلر الوردي اللي بنحطها فوق كل النصوص ───────────────────────────────
-const PINK_GLOW         = "0 0 4px rgba(198,80,80,0.55), 0 0 14px rgba(198,80,80,0.4), 0 2px 10px rgba(198,80,80,0.3)";
-const PINK_GLOW_SOFT    = "0 0 3px rgba(198,80,80,0.4), 0 0 10px rgba(198,80,80,0.28)";
-const PINK_GLOW_ON_DARK = "0 0 6px rgba(255,150,165,0.7), 0 0 18px rgba(230,90,110,0.5), 0 2px 10px rgba(0,0,0,0.25)";
 
 // ─── رابط الموسيقى ───────────────────────────────
 const MUSIC_URL = "/2.mp3";
 
 // ─── بيانات الفرح (ستاتيك 100% - عدّل هنا اللي محتاجه) ───────────────────────────────
 const WEDDING_DATA = {
-  groomName:     "Zeyad ",
+  groomName:     " Ziad ",
   brideName:     "Jana",
-  groomFullName: "Zeyad ",
+  groomFullName: " Ziad ",
   brideFullName: "Jana",
   date:          "2026-08-21T19:00:00",
   invitationText:
@@ -520,7 +517,6 @@ export default function WeddingInvitation() {
                   animation:   "blink 2.4s ease-in-out infinite",
                   letterSpacing: "0.2em",
                   whiteSpace:  "nowrap",
-                  textShadow: PINK_GLOW_ON_DARK,
                 }}
               >
                 open your invitation
@@ -629,19 +625,18 @@ export default function WeddingInvitation() {
                 fontSize:      "clamp(0.82rem, 1.2vw, 0.75rem)",
                 letterSpacing: "clamp(0.22em, 1vw, 0.35em)",
                 textTransform: "uppercase",
-                textShadow: PINK_GLOW_ON_DARK,
               }}
             >
               We joyfully invite you to celebrate
             </p>
             <div className="reveal reveal-delay-1 flex flex-col items-center">
-              <span className=" " style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2.8rem, 7vw, 5.2rem)", color:T.coupleNamesColor, lineHeight:1.1, textShadow: PINK_GLOW }}>
+              <span className=" " style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2.8rem, 7vw, 5.2rem)", color:T.coupleNamesColor, lineHeight:1.1  }}>
                 {wedding.groomName}
               </span>
-              <span className=" " style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.4rem, 3vw, 2.2rem)", color:T.coupleNamesColor, letterSpacing:"0.15em", textShadow: PINK_GLOW_SOFT }}>
+              <span className=" " style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.4rem, 3vw, 2.2rem)", color:T.coupleNamesColor, letterSpacing:"0.15em",}}>
                 &amp;
               </span>
-              <span className=" " style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2.8rem, 7vw, 5.2rem)", color:T.coupleNamesColor, lineHeight:1.1, textShadow: PINK_GLOW }}>
+              <span className=" " style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2.8rem, 7vw, 5.2rem)", color:T.coupleNamesColor, lineHeight:1.1}}>
                 {wedding.brideName}
               </span>
             </div>
@@ -657,7 +652,6 @@ export default function WeddingInvitation() {
                 fontSize:      "clamp(0.82rem, 1.2vw, 0.7rem)",
                 letterSpacing: "clamp(0.22em, 1vw, 0.35em)",
                 textTransform: "uppercase",
-                textShadow: PINK_GLOW_ON_DARK,
               }}
             >
               Together with their families
@@ -670,7 +664,7 @@ export default function WeddingInvitation() {
             <div className="reveal reveal-delay-3 flex flex-col items-center gap-1">
               <div
                 className="text-white font-medium flex flex-row flex-wrap items-center justify-center gap-1 fog-text"
-                style={{ fontFamily:"'Cinzel', serif", fontSize:"clamp(0.95rem, 1.8vw, 1rem)", letterSpacing:"0.08em", textTransform:"uppercase", textShadow: PINK_GLOW_ON_DARK }}
+                style={{ fontFamily:"'Cinzel', serif", fontSize:"clamp(0.95rem, 1.8vw, 1rem)", letterSpacing:"0.08em", textTransform:"uppercase" }}
               >
                 <span>{weddingDate.toLocaleDateString("en-GB", { weekday: "long" })}</span>
                 <span>•</span>
@@ -678,7 +672,7 @@ export default function WeddingInvitation() {
               </div>
               <div
                 className="text-white font-medium fog-text"
-                style={{ fontFamily:"'Cinzel', serif", fontSize:"clamp(0.95rem, 1.8vw, 1rem)", letterSpacing:"clamp(0.28em, 1vw, 0.35em)", textShadow: PINK_GLOW_ON_DARK }}
+                style={{ fontFamily:"'Cinzel', serif", fontSize:"clamp(0.95rem, 1.8vw, 1rem)", letterSpacing:"clamp(0.28em, 1vw, 0.35em)" }}
               >
                 {formattedTime}
               </div>
@@ -692,7 +686,7 @@ export default function WeddingInvitation() {
           <FloatingParticles />
           <h2
             className="reveal text-white mb-10 sm:mb-[60px] font-normal"
-            style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(2.1rem,4vw,3rem)", letterSpacing:"0.06em", textShadow: `0 2px 20px rgba(0,0,0,0.2), ${PINK_GLOW_ON_DARK}`, width:"100%" }}
+            style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(2.1rem,4vw,3rem)", letterSpacing:"0.06em", width:"100%" }}
           >
             Countdown To Our Forever
           </h2>
@@ -708,10 +702,10 @@ export default function WeddingInvitation() {
                 className="aspect-square rounded-[20px] sm:rounded-[18px] flex flex-col items-center justify-center gap-2"
                 style={{ background: T.countdownCardBg, boxShadow: "0 8px 32px rgba(0,0,0,0.15)" }}
               >
-                <span className="cd-number font-light text-white leading-none text-[11vw] sm:text-[clamp(2.8rem,5vw,4.5rem)]" style={{ textShadow: PINK_GLOW_ON_DARK }}>
+                <span className="cd-number font-light text-white leading-none text-[11vw] sm:text-[clamp(2.8rem,5vw,4.5rem)]" style={{  }}>
                   {String(val).padStart(2, "0")}
                 </span>
-                <span className="uppercase text-[3.5vw] sm:text-[clamp(0.55rem,1vw,0.75rem)]" style={{ fontFamily:"'Cinzel',serif", letterSpacing:"0.3em", color:T.venueTitleColor, textShadow: PINK_GLOW_SOFT }}>
+                <span className="uppercase text-[3.5vw] sm:text-[clamp(0.55rem,1vw,0.75rem)]" style={{ fontFamily:"'Cinzel',serif", letterSpacing:"0.3em", color:T.venueTitleColor }}>
                   {label}
                 </span>
               </div>
@@ -722,13 +716,13 @@ export default function WeddingInvitation() {
 <section className="py-20 px-6 text-center" style={{ background: "linear-gradient(180deg, #FFF1F0 0%, #FFD7D7 60%, #FFF1F0 100%)" }}>
   <h2
     className="reveal font-normal mb-3 "
-    style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(1.5rem,3.5vw,2.4rem)", letterSpacing:"0.07em", color:"#7a2828", textShadow: PINK_GLOW_SOFT }}
+    style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(1.5rem,3.5vw,2.4rem)", letterSpacing:"0.07em", color:"#7a2828" }}
   >
     Our Story in Frames
   </h2>
   <p
     className="reveal reveal-delay-1 uppercase mb-12 "
-    style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(0.65rem,1.2vw,0.85rem)", letterSpacing:"0.28em", color:"#c05050", textShadow: PINK_GLOW_SOFT }}
+    style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(0.65rem,1.2vw,0.85rem)", letterSpacing:"0.28em", color:"#c05050" }}
   >
     moments we'll cherish forever
   </p>
@@ -810,7 +804,7 @@ export default function WeddingInvitation() {
 
     <p
       className="uppercase mb-4 fog-text"
-      style={{ fontFamily:"'Cinzel',serif", fontSize:"0.65rem", letterSpacing:"0.35em", color:"#c05050", textShadow: PINK_GLOW_SOFT }}
+      style={{ fontFamily:"'Cinzel',serif", fontSize:"0.65rem", letterSpacing:"0.35em", color:"#c05050"  }}
     >
       A Note From The Couple
     </p>
@@ -822,16 +816,15 @@ export default function WeddingInvitation() {
         fontWeight:400,
         color:"#5a1e1e",
         lineHeight:1.9,
-        maxWidth:420,
-        textShadow: PINK_GLOW_SOFT,
+        maxWidth:420
       }}
     >
       Your presence on our special day means the world to us.
       We look forward to sharing this beautiful moment with you
       and creating memories that will last a lifetime.
     </p>
-    <div className="fog-text" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.6rem,4vw,2.2rem)", color:"#c05050", lineHeight:1.2, textShadow: PINK_GLOW }}>
-      Zeyad  &amp; Jana
+    <div className="fog-text" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.6rem,4vw,2.2rem)", color:"#c05050", lineHeight:1.2 }}>
+       Ziad  &amp; Jana
     </div>
     <div className="flex items-center justify-center gap-2 mt-5" style={{ color:"rgba(198,80,80,0.45)", fontSize:"0.8rem", letterSpacing:"0.5em" }}>
       ♥ ♥ ♥
@@ -842,19 +835,19 @@ export default function WeddingInvitation() {
         <section className="py-24 px-6 text-center" style={{ background: T.venueBg }}>
           <h2
             className="reveal font-normal mb-8 fog-text"
-            style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(2.1rem,4.5vw,3rem)", letterSpacing:"0.06em", color:T.venueTitleColor, textShadow: PINK_GLOW_SOFT }}
+            style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(2.1rem,4.5vw,3rem)", letterSpacing:"0.06em", color:T.venueTitleColor}}
           >
             Wedding Venue
           </h2>
           <p
             className="reveal reveal-delay-1 font-light italic mb-2 mx-auto fog-text"
-            style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,3.8vw,2.5rem)", letterSpacing:"0.03em", color:T.venueNameColor, textShadow: PINK_GLOW_SOFT }}
+            style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,3.8vw,2.5rem)", letterSpacing:"0.03em", color:T.venueNameColor }}
           >
             {wedding.venue.name}
           </p>
           <p
             className="reveal reveal-delay-2 uppercase max-w-[480px] mx-auto mb-[52px] leading-[1.85] fog-text"
-            style={{ fontFamily:"'Cinzel',serif", fontSize:"1rem", letterSpacing:"0.15em", color:T.venueAddrColor, textShadow: PINK_GLOW_SOFT }}
+            style={{ fontFamily:"'Cinzel',serif", fontSize:"1rem", letterSpacing:"0.15em", color:T.venueAddrColor  }}
           >
             {wedding.venue.address}
           </p>
@@ -881,7 +874,7 @@ export default function WeddingInvitation() {
           <span className="absolute right-10 top-[55%] -translate-y-1/2 text-4xl pointer-events-none select-none text-[rgba(180,80,80,0.06)] hidden sm:block">✿</span>
           <h2
             className="reveal font-normal mb-8 sm:mb-[52px] relative fog-text"
-            style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(2rem,4.5vw,3rem)", letterSpacing:"0.08em", color:T.invTitleColor, textShadow: PINK_GLOW_SOFT }}
+            style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(2rem,4.5vw,3rem)", letterSpacing:"0.08em", color:T.invTitleColor  }}
           >
             Invitation
           </h2>
@@ -895,8 +888,7 @@ export default function WeddingInvitation() {
     textTransform:"uppercase", 
     fontWeight:400, 
     whiteSpace:"pre-line", 
-    color: T.invTitleColor,  // ← غيّرت من invBodyColor لـ invTitleColor
-    textShadow: PINK_GLOW_SOFT,
+    color: T.invTitleColor  // ← غيّرت من invBodyColor لـ invTitleColor
   }}
 >
   {wedding.invitationText}
@@ -907,19 +899,19 @@ export default function WeddingInvitation() {
             <div className="inv-ornament-line rev" />
           </div>
           <div className="reveal reveal-delay-3 leading-[1.3] flex flex-col items-center text-center gap-1">
-            <span className="" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2rem,6vw,3.6rem)", color:T.invCoupleColor, textShadow: PINK_GLOW }}>
+            <span className="" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2rem,6vw,3.6rem)", color:T.invCoupleColor }}>
               {wedding.groomFullName}
             </span>
-            <span className="" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.4rem,3vw,2.2rem)", color:T.invAmpColor, letterSpacing:"0.15em", lineHeight:1, textShadow: PINK_GLOW_SOFT }}>
+            <span className="" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.4rem,3vw,2.2rem)", color:T.invAmpColor, letterSpacing:"0.15em", lineHeight:1  }}>
               &amp;
             </span>
-            <span className="" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2rem,6vw,3.6rem)", color:T.invCoupleColor, textShadow: PINK_GLOW }}>
+            <span className="" style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2rem,6vw,3.6rem)", color:T.invCoupleColor }}>
               {wedding.brideFullName}
             </span>
           </div>
           <p
             className="reveal reveal-delay-4 mt-10 sm:mt-12 "
-            style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(0.7rem,1vw,1rem)", letterSpacing:"clamp(0.5em,1vw,1.2em)", textTransform:"uppercase", color:T.invFooterColor, textShadow: PINK_GLOW_SOFT }}
+            style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(0.7rem,1vw,1rem)", letterSpacing:"clamp(0.5em,1vw,1.2em)", textTransform:"uppercase", color:T.invFooterColor  }}
           >
             with love
           </p>
