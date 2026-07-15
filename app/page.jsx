@@ -1,5 +1,4 @@
 "use client";
-
 import React, { useEffect, useRef, useState } from "react";
 
 const themes = {
@@ -187,13 +186,10 @@ const themes = {
   },
 };
 
-// ─── اختار الثيم هنا ───────────────────────────────
 const T = themes.pink;
 
-// ─── رابط الموسيقى ───────────────────────────────
 const MUSIC_URL = "/2.mp3";
 
-// ─── بيانات الفرح (ستاتيك 100% - عدّل هنا اللي محتاجه) ───────────────────────────────
 const WEDDING_DATA = {
   groomName:     "Ziad ",
   brideName:     "Jana",
@@ -202,15 +198,14 @@ const WEDDING_DATA = {
   date:          "2026-08-21T19:00:00",
   invitationText:
     "Please join us as we celebrate our love and begin our forever together\nas husband and wife",
-venue: {
-  name:    "Paradise in hotel on the beach",
-  address: "El Maamoura, Alexandria, Egypt",
-  lat:     31.2889188,
-  lng:     30.025028,
-},
+  venue: {
+    name:    "Paradise in hotel on the beach",
+    address: "El Maamoura, Alexandria, Egypt",
+    lat:     31.2889188,
+    lng:     30.025028,
+  },
 };
 
-/* ─── Animations ─── */
 const getCriticalStyles = () => `
 @keyframes floatUp {
   0%   { transform: translateY(0) rotate(0deg);   opacity: 0; }
@@ -303,7 +298,6 @@ const getCriticalStyles = () => `
 }
 `;
 
-/* ─── Particles ─── */
 const particles = [
   { symbol: "❤", left: "15%", size: "1.8rem", dur: "8s",  delay: "0s",  rotate: "360deg"  },
   { symbol: "❤", left: "50%", size: "1.85rem",dur: "9s",  delay: "4s",  rotate: "300deg"  },
@@ -370,7 +364,6 @@ function FloatingParticles({ heartsOnly = false, heartColor = "rgba(220,50,50,1)
   );
 }
 
-/* ─── Countdown hook ─── */
 function useCountdown(target) {
   const calc = () => {
     const diff = new Date(target).getTime() - Date.now();
@@ -390,7 +383,6 @@ function useCountdown(target) {
   return time;
 }
 
-/* ─── Reveal hook ─── */
 function useReveal(dep) {
   useEffect(() => {
     if (!dep) return;
@@ -408,21 +400,33 @@ function useReveal(dep) {
   }, [dep]);
 }
 
-/* ─── Parallax hook ─── */
 function useParallax() {
   useEffect(() => {}, []);
 }
 
-/* ─── Music hook ─── */
+/* ─── Music hook ─── مع قطع آخر ثانيتين */
 function useMusic() {
   const audioRef = useRef(null);
 
   useEffect(() => {
     const audio = new Audio(MUSIC_URL);
-    audio.loop = true;
+    audio.loop = false;
     audio.volume = 0.1;
+
+    // لما يشغّل ويعرف المدة الكلية، يحسب نقطة القطع
+    const handleTimeUpdate = () => {
+      if (audio.duration && audio.currentTime >= audio.duration - 2) {
+        // ارجع للبداية بدل ما تشغّل آخر ثانيتين
+        audio.currentTime = 0;
+        audio.play().catch(() => {});
+      }
+    };
+
+    audio.addEventListener("timeupdate", handleTimeUpdate);
     audioRef.current = audio;
+
     return () => {
+      audio.removeEventListener("timeupdate", handleTimeUpdate);
       audio.pause();
       audio.src = "";
     };
@@ -435,10 +439,8 @@ function useMusic() {
   return { play };
 }
 
-const BG_URL =
-  "/شاطئ.png";
+const BG_URL = "/شاطئ.png";
 
-/* ═══════════════════════════════════════════════════════════════════ */
 export default function WeddingInvitation() {
   const [envelopeOpen, setEnvelopeOpen] = useState(false);
   const [showCard,     setShowCard]     = useState(false);
@@ -475,7 +477,6 @@ export default function WeddingInvitation() {
     <>
       <style>{getCriticalStyles()}</style>
 
-      {/* ══════ ENVELOPE ══════ */}
       {!showCard && (
         <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-[#FFF1F0]">
           <div
@@ -521,67 +522,45 @@ export default function WeddingInvitation() {
               <div className="env-side-r" />
               <div className="env-bottom absolute bottom-0 left-0 right-0 overflow-hidden" style={{ height: 140 }} />
               <div className="env-flap" />
-<div
-  className="absolute z-10 rounded-full flex items-center justify-center border border-[rgba(255,180,180,0.3)] w-[clamp(54px,18vw,76px)] h-[clamp(54px,18vw,76px)] sm:w-16 sm:h-16"
-  style={{
-    top: "44%", left: "50%", transform: "translate(-50%,-50%)",
-    background: `radial-gradient(circle at 38% 32%, ${T.sealBgFrom}, ${T.sealBgTo})`,
-    boxShadow: "0 6px 20px rgba(0,0,0,0.3),inset 0 1px 3px rgba(255,200,200,0.3)",
-    color: T.sealText,
-    flexDirection: "row",
-    padding: "0 3px",
-    boxSizing: "border-box",
-    overflow: "hidden",
-    gap: 0,
-    position: "relative"
-  }}
->
-  <span
-    className="text-[clamp(1.2rem,2.5vw,2.4rem)] sm:text-2xl font-semibold sm:font-light"
-    style={{ fontFamily: "'Great Vibes', cursive", transform: "translateX(-4px)", lineHeight: 1, flex: 1, textAlign: "center" }}
-  >
-    Z
-  </span>
-  <span
-    className="text-[clamp(0.55rem,2.8vw,0.85rem)] sm:text-xs font-bold sm:font-normal"
-    style={{ fontFamily: "'Cinzel', serif", transform: "translateX(-2px)", lineHeight: 1, opacity: 0.9, flexShrink: 0, marginTop: "6px" }}
-  >
-    &
-  </span>
-  <span
-    className="text-[clamp(1.2rem,2.5vw,2.4rem)] sm:text-2xl font-semibold sm:font-light"
-    style={{ fontFamily: "'Great Vibes', cursive", transform: "translateX(-4px)", lineHeight: 1, flex: 1, textAlign: "center" }}
-  >
-    J
-  </span>
-</div>
-
-
-
-{/* ```javascriptreact
               <div
-                className="absolute z-10 rounded-full flex items-center justify-center border border-[rgba(255,180,180,0.3)]"
+                className="absolute z-10 rounded-full flex items-center justify-center border border-[rgba(255,180,180,0.3)] w-[clamp(54px,18vw,76px)] h-[clamp(54px,18vw,76px)] sm:w-16 sm:h-16"
                 style={{
                   top: "44%", left: "50%", transform: "translate(-50%,-50%)",
-                  width:      "clamp(36px, 13vw, 52px)",
-                  height:     "clamp(36px, 13vw, 52px)",
                   background: `radial-gradient(circle at 38% 32%, ${T.sealBgFrom}, ${T.sealBgTo})`,
-                  boxShadow:  "0 6px 20px rgba(0,0,0,0.3),inset 0 1px 3px rgba(255,200,200,0.3)",
-                  fontFamily: "'Great Vibes', cursive",
-                  fontSize:   "clamp(1rem, 5vw, 1.6rem)",
-                  color:      T.sealText,
+                  boxShadow: "0 6px 20px rgba(0,0,0,0.3),inset 0 1px 3px rgba(255,200,200,0.3)",
+                  color: T.sealText,
+                  flexDirection: "row",
+                  padding: "0 3px",
+                  boxSizing: "border-box",
+                  overflow: "hidden",
+                  gap: 0,
+                  position: "relative"
                 }}
               >
-                
-              </div> 
-``` */}
-
+                <span
+                  className="text-[clamp(1.2rem,2.5vw,2.4rem)] sm:text-2xl font-semibold sm:font-light"
+                  style={{ fontFamily: "'Great Vibes', cursive", transform: "translateX(-4px)", lineHeight: 1, flex: 1, textAlign: "center" }}
+                >
+                  Z
+                </span>
+                <span
+                  className="text-[clamp(0.55rem,2.8vw,0.85rem)] sm:text-xs font-bold sm:font-normal"
+                  style={{ fontFamily: "'Cinzel', serif", transform: "translateX(-2px)", lineHeight: 1, opacity: 0.9, flexShrink: 0, marginTop: "6px" }}
+                >
+                  &
+                </span>
+                <span
+                  className="text-[clamp(1.2rem,2.5vw,2.4rem)] sm:text-2xl font-semibold sm:font-light"
+                  style={{ fontFamily: "'Great Vibes', cursive", transform: "translateX(-4px)", lineHeight: 1, flex: 1, textAlign: "center" }}
+                >
+                  J
+                </span>
+              </div>
             </div>
           </div>
         </div>
       )}
 
-      {/* ══════ CARD ══════ */}
       <div
         className={`transition-all duration-700 ease-out ${showCard ? "opacity-100 translate-y-0" : "opacity-0 translate-y-7"}`}
         style={{ display: showCard ? "block" : "none" }}
@@ -694,125 +673,119 @@ export default function WeddingInvitation() {
             ))}
           </div>
         </section>
-{/* SECTION 3.5: FRAMES & NOTE */}
-<section className="py-20 px-6 text-center" style={{ background: "linear-gradient(180deg, #FFF1F0 0%, #FFD7D7 60%, #FFF1F0 100%)" }}>
-  <h2
-    className="reveal font-normal mb-3"
-    style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(1.5rem,3.5vw,2.4rem)", letterSpacing:"0.07em", color:"#7a2828" }}
-  >
-    Our Story in Frames
-  </h2>
-  <p
-    className="reveal reveal-delay-1 uppercase mb-12"
-    style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(0.65rem,1.2vw,0.85rem)", letterSpacing:"0.28em", color:"#c05050" }}
-  >
-    moments we'll cherish forever
-  </p>
 
-  {/* Grid الفريمز */}
-  <div className="reveal reveal-delay-1 grid grid-cols-2 gap-5 max-w-[640px] mx-auto mb-14">
-    {[
-{ caption: "First Look",  url: "/1.jpeg" },
-{ caption: "With Love",   url: "/3.jpeg" },
-{ caption: "Together",    url: "/2.jpeg" },
-{ caption: "Forever",     url: "/4.jpeg" },
-    ].map(({ caption, url }, i) => (
-      <div
-        key={i}
-        className="relative overflow-hidden rounded-sm"
-        style={{
-          aspectRatio: "3/4",
-          border: "3px solid rgba(255,255,255,0.85)",
-          boxShadow: "0 8px 32px rgba(180,60,60,0.18), 0 2px 8px rgba(180,60,60,0.1)",
-          background: "#f9e8e8",
-        }}
-      >
-        {/* Inner border decoration */}
-        <div
-          className="absolute pointer-events-none z-10"
-          style={{ inset: 8, border: "1px solid rgba(198,80,80,0.3)", borderRadius: 2 }}
-        />
-        {/* الصورة أو placeholder */}
-        {url ? (
-          <img src={url} alt={caption} className="w-full h-full object-cover block" style={{ filter:"sepia(0.08) brightness(0.97)" }} />
-        ) : (
-          <div
-            className="w-full h-full flex flex-col items-center justify-center gap-2"
-            style={{ background:"linear-gradient(135deg,#FFD7D7 0%,#FFA7A6 50%,#FFD7D7 100%)" }}
+        {/* SECTION 3.5: FRAMES & NOTE */}
+        <section className="py-20 px-6 text-center" style={{ background: "linear-gradient(180deg, #FFF1F0 0%, #FFD7D7 60%, #FFF1F0 100%)" }}>
+          <h2
+            className="reveal font-normal mb-3"
+            style={{ fontFamily:"'Cinzel Decorative','Cinzel',serif", fontSize:"clamp(1.5rem,3.5vw,2.4rem)", letterSpacing:"0.07em", color:"#7a2828" }}
           >
-            <span style={{ fontSize:"2rem", color:"rgba(180,80,80,0.35)" }}>◻</span>
-            <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.6rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(122,40,40,0.5)" }}>Photo {i+1}</span>
+            Our Story in Frames
+          </h2>
+          <p
+            className="reveal reveal-delay-1 uppercase mb-12"
+            style={{ fontFamily:"'Cinzel',serif", fontSize:"clamp(0.65rem,1.2vw,0.85rem)", letterSpacing:"0.28em", color:"#c05050" }}
+          >
+            moments we'll cherish forever
+          </p>
+
+          <div className="reveal reveal-delay-1 grid grid-cols-2 gap-5 max-w-[640px] mx-auto mb-14">
+            {[
+              { caption: "First Look",  url: "/1.jpeg" },
+              { caption: "With Love",   url: "/3.jpeg" },
+              { caption: "Together",    url: "/2.jpeg" },
+              { caption: "Forever",     url: "/4.jpeg" },
+            ].map(({ caption, url }, i) => (
+              <div
+                key={i}
+                className="relative overflow-hidden rounded-sm"
+                style={{
+                  aspectRatio: "3/4",
+                  border: "3px solid rgba(255,255,255,0.85)",
+                  boxShadow: "0 8px 32px rgba(180,60,60,0.18), 0 2px 8px rgba(180,60,60,0.1)",
+                  background: "#f9e8e8",
+                }}
+              >
+                <div
+                  className="absolute pointer-events-none z-10"
+                  style={{ inset: 8, border: "1px solid rgba(198,80,80,0.3)", borderRadius: 2 }}
+                />
+                {url ? (
+                  <img src={url} alt={caption} className="w-full h-full object-cover block" style={{ filter:"sepia(0.08) brightness(0.97)" }} />
+                ) : (
+                  <div
+                    className="w-full h-full flex flex-col items-center justify-center gap-2"
+                    style={{ background:"linear-gradient(135deg,#FFD7D7 0%,#FFA7A6 50%,#FFD7D7 100%)" }}
+                  >
+                    <span style={{ fontSize:"2rem", color:"rgba(180,80,80,0.35)" }}>◻</span>
+                    <span style={{ fontFamily:"'Cinzel',serif", fontSize:"0.6rem", letterSpacing:"0.2em", textTransform:"uppercase", color:"rgba(122,40,40,0.5)" }}>Photo {i+1}</span>
+                  </div>
+                )}
+                <div
+                  className="absolute bottom-0 left-0 right-0 z-20 py-2 px-3"
+                  style={{
+                    background:"linear-gradient(0deg, rgba(90,30,30,0.55) 0%, transparent 100%)",
+                    fontFamily:"'Great Vibes', cursive",
+                    fontSize:"clamp(1rem,3vw,1.2rem)",
+                    color:"#fff",
+                    letterSpacing:"0.05em",
+                  }}
+                >
+                  {caption}
+                </div>
+              </div>
+            ))}
           </div>
-        )}
-        {/* Caption */}
-        <div
-          className="absolute bottom-0 left-0 right-0 z-20 py-2 px-3"
-          style={{
-            background:"linear-gradient(0deg, rgba(90,30,30,0.55) 0%, transparent 100%)",
-            fontFamily:"'Great Vibes', cursive",
-            fontSize:"clamp(1rem,3vw,1.2rem)",
-            color:"#fff",
-            letterSpacing:"0.05em",
-          }}
-        >
-          {caption}
-        </div>
-      </div>
-    ))}
-  </div>
 
-  {/* Divider */}
-  <div className="reveal reveal-delay-2 flex items-center gap-4 justify-center mb-12 mx-auto max-w-xs">
-    <div className="flex-1 h-px" style={{ background:"linear-gradient(90deg, transparent, rgba(198,80,80,0.5))" }} />
-    <span style={{ color:"rgba(198,80,80,0.6)", fontSize:"0.7rem", letterSpacing:"0.1em" }}>◆ ◆ ◆</span>
-    <div className="flex-1 h-px" style={{ background:"linear-gradient(90deg, rgba(198,80,80,0.5), transparent)" }} />
-  </div>
+          <div className="reveal reveal-delay-2 flex items-center gap-4 justify-center mb-12 mx-auto max-w-xs">
+            <div className="flex-1 h-px" style={{ background:"linear-gradient(90deg, transparent, rgba(198,80,80,0.5))" }} />
+            <span style={{ color:"rgba(198,80,80,0.6)", fontSize:"0.7rem", letterSpacing:"0.1em" }}>◆ ◆ ◆</span>
+            <div className="flex-1 h-px" style={{ background:"linear-gradient(90deg, rgba(198,80,80,0.5), transparent)" }} />
+          </div>
 
-  {/* Invitation Note */}
-  <div
-    className="reveal reveal-delay-3 mx-auto relative"
-    style={{
-      maxWidth: 560,
-      padding: "40px 32px",
-      background:"rgba(255,255,255,0.55)",
-      border:"1px solid rgba(198,80,80,0.25)",
-      borderRadius: 4,
-      backdropFilter:"blur(6px)",
-      WebkitBackdropFilter:"blur(6px)",
-    }}
-  >
-    {/* Dashed inner */}
-    <div className="absolute pointer-events-none" style={{ inset:10, border:"1px dashed rgba(198,80,80,0.2)", borderRadius:2 }} />
+          <div
+            className="reveal reveal-delay-3 mx-auto relative"
+            style={{
+              maxWidth: 560,
+              padding: "40px 32px",
+              background:"rgba(255,255,255,0.55)",
+              border:"1px solid rgba(198,80,80,0.25)",
+              borderRadius: 4,
+              backdropFilter:"blur(6px)",
+              WebkitBackdropFilter:"blur(6px)",
+            }}
+          >
+            <div className="absolute pointer-events-none" style={{ inset:10, border:"1px dashed rgba(198,80,80,0.2)", borderRadius:2 }} />
+            <p
+              className="uppercase mb-4"
+              style={{ fontFamily:"'Cinzel',serif", fontSize:"0.65rem", letterSpacing:"0.35em", color:"#c05050" }}
+            >
+              A Note From The Couple
+            </p>
+            <p
+              className="italic mb-6 mx-auto"
+              style={{
+                fontFamily:"'Cormorant Garamond',serif",
+                fontSize:"clamp(1.1rem,2.4vw,1.35rem)",
+                fontWeight:400,
+                color:"#5a1e1e",
+                lineHeight:1.9,
+                maxWidth:420,
+              }}
+            >
+              Your presence on our special day means the world to us.
+              We look forward to sharing this beautiful moment with you
+              and creating memories that will last a lifetime.
+            </p>
+            <div style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.6rem,4vw,2.2rem)", color:"#c05050", lineHeight:1.2 }}>
+              Ziad  &amp; Jana
+            </div>
+            <div className="flex items-center justify-center gap-2 mt-5" style={{ color:"rgba(198,80,80,0.45)", fontSize:"0.8rem", letterSpacing:"0.5em" }}>
+              ♥ ♥ ♥
+            </div>
+          </div>
+        </section>
 
-    <p
-      className="uppercase mb-4"
-      style={{ fontFamily:"'Cinzel',serif", fontSize:"0.65rem", letterSpacing:"0.35em", color:"#c05050" }}
-    >
-      A Note From The Couple
-    </p>
-    <p
-      className="italic mb-6 mx-auto"
-      style={{
-        fontFamily:"'Cormorant Garamond',serif",
-        fontSize:"clamp(1.1rem,2.4vw,1.35rem)",
-        fontWeight:400,
-        color:"#5a1e1e",
-        lineHeight:1.9,
-        maxWidth:420,
-      }}
-    >
-      Your presence on our special day means the world to us.
-      We look forward to sharing this beautiful moment with you
-      and creating memories that will last a lifetime.
-    </p>
-    <div style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(1.6rem,4vw,2.2rem)", color:"#c05050", lineHeight:1.2 }}>
-      Ziad  &amp; Jana
-    </div>
-    <div className="flex items-center justify-center gap-2 mt-5" style={{ color:"rgba(198,80,80,0.45)", fontSize:"0.8rem", letterSpacing:"0.5em" }}>
-      ♥ ♥ ♥
-    </div>
-  </div>
-</section>
         {/* SECTION 3: VENUE */}
         <section className="py-24 px-6 text-center" style={{ background: T.venueBg }}>
           <h2
@@ -860,21 +833,21 @@ export default function WeddingInvitation() {
           >
             Invitation
           </h2>
-<p
-  className="reveal reveal-delay-1 max-w-[700px] mx-auto mb-10 sm:mb-12 relative"
-  style={{ 
-    fontFamily:"'Cinzel',serif", 
-    fontSize:"clamp(1rem,2vw,1.1rem)", 
-    lineHeight:"clamp(3.4,3.8vw,2.8)", 
-    letterSpacing:"clamp(0.12em,1vw,0.18em)", 
-    textTransform:"uppercase", 
-    fontWeight:400, 
-    whiteSpace:"pre-line", 
-    color: T.invTitleColor  // ← غيّرت من invBodyColor لـ invTitleColor
-  }}
->
-  {wedding.invitationText}
-</p>
+          <p
+            className="reveal reveal-delay-1 max-w-[700px] mx-auto mb-10 sm:mb-12 relative"
+            style={{
+              fontFamily:"'Cinzel',serif",
+              fontSize:"clamp(1rem,2vw,1.1rem)",
+              lineHeight:"clamp(3.4,3.8vw,2.8)",
+              letterSpacing:"clamp(0.12em,1vw,0.18em)",
+              textTransform:"uppercase",
+              fontWeight:400,
+              whiteSpace:"pre-line",
+              color: T.invTitleColor
+            }}
+          >
+            {wedding.invitationText}
+          </p>
           <div className="reveal reveal-delay-2 flex items-center gap-5 justify-center mb-10 sm:mb-12">
             <div className="inv-ornament-line" />
             <span style={{ fontFamily:"'Cormorant Garamond',serif", fontStyle:"italic", color:"rgba(180,80,80,0.5)" }} className="text-base tracking-[0.2em]">◆</span>
