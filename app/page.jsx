@@ -201,7 +201,7 @@ const WEDDING_DATA = {
   brideFullName: "Jana",
   date:          "2026-08-21T19:00:00",
   invitationText:
-    "Please join us as we exchange vows\nand begin our journey together\nas husband and wife",
+    "Please join us as we celebrate our love and begin our forever together\nas husband and wife",
 venue: {
   name:    "Paradise in hotel on the beach",
   address: "El Maamoura, Alexandria, Egypt",
